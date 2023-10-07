@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog, messagebox
 import os
 
+from controllers.lexer import Lexer
+
 class MenuView():
     
     menuView = Tk()
@@ -165,7 +167,21 @@ class MenuView():
             messagebox.showinfo(title="Aviso", message="Ocurrio un error al guardar el archivo")
             
     def analyzeFile(self):
-        pass
+        try:
+            jsonString = self.getEditor()
+            if jsonString == "":
+                messagebox.showinfo(title="Aviso", message="No hay texto para analizar")
+            else:
+                lex = Lexer(jsonString)
+                lex.analyze()
+                self.setConsole("Archivo analizado correctamente\n")
+                
+                tokens = lex.getTokens()
+                for token in tokens:
+                    self.setConsole(str(token) + "\n")
+            pass
+        except:
+            messagebox.showinfo(title="Aviso", message="Ocurrio un error al analizar el archivo")
     
     def generateErrors(self):
         pass
