@@ -39,4 +39,4 @@ max("precio_venta");
 
 min("precio_compra");
 
-exportarRepote("Reporte HTML de abarroteria")
+exportarReporte("Reporte HTML de abarroteria");

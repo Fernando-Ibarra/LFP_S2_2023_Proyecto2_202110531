@@ -8,6 +8,7 @@ from typing import NamedTuple
 
 @unique
 class TokenType(Enum):
+    # Special tokens    
     ILLEGAL = auto()
     EOF = auto()
     

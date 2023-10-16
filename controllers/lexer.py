@@ -6,6 +6,7 @@ from controllers.token import (
 from models.Error import Error
 
 tokens = []
+tokensToParser = []
 
 class Lexer:
 
@@ -161,6 +162,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     state = 0
                     lexeme = ""
                     prev_state = 0
@@ -172,6 +174,7 @@ class Lexer:
                 else:
                     token: Token = Token(TokenType.KEY, lexeme)
                     tokens.append(token)
+                    tokensToParser.append(token)
                     state = 0
                     prev_state = 0
                     lexeme = ""
@@ -209,6 +212,7 @@ class Lexer:
                         else:
                             token: Token = Token(TokenType.ILLEGAL, character)
                             tokens.append(token)
+                            tokensToParser.append(token)
                         state = 0
                         lexeme = ""
                         prev_state = 0
@@ -223,6 +227,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -237,6 +242,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -252,6 +258,7 @@ class Lexer:
                 else:
                     token: Token = Token(TokenType.INTEGER, lexeme)
                     tokens.append(token)
+                    tokensToParser.append(token)
                     state = 0
                     prev_state = 0
                     lexeme = ""
@@ -289,6 +296,7 @@ class Lexer:
                         else:
                             token: Token = Token(TokenType.ILLEGAL, character)
                             tokens.append(token)
+                            tokensToParser.append(token)
                         state = 0
                         lexeme = ""
                         prev_state = 0
@@ -304,6 +312,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                 elif self.line_comment_end_analyzer(character):
                     state = 5
                     lexeme += character
@@ -316,6 +325,7 @@ class Lexer:
                 else:
                     token: Token = Token(TokenType.ILLEGAL, character)
                     tokens.append(token)
+                    tokensToParser.append(token)
                     lexeme = ""
                     state = 0
                     prev_state = 0  
@@ -323,7 +333,8 @@ class Lexer:
                         pass
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
-                        tokens.append(token)        
+                        tokens.append(token)
+                        tokensToParser.append(token)    
             elif state == 7:
                 if self.keyword_end_analyzer(character):
                     state = 8
@@ -336,6 +347,7 @@ class Lexer:
                 else:
                     token: Token = Token(TokenType.ILLEGAL, character)
                     tokens.append(token)
+                    tokensToParser.append(token)
                     lexeme = ""
                     state = 0
                     prev_state = 0
@@ -344,10 +356,12 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
             elif state == 8:
                 if prev_state == 7:
                     token: Token = Token(TokenType.KEYWORD, lexeme)
                     tokens.append(token)
+                    tokensToParser.append(token)
                 elif prev_state == 14:
                     token: Token = Token(TokenType.BLOCK_COMMENT, lexeme)
                     tokens.append(token)
@@ -355,33 +369,43 @@ class Lexer:
                     if lexeme == ",":
                         token: Token = Token(TokenType.COMMA, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == ":":
                         token: Token = Token(TokenType.COLON, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == "[":
                         token: Token = Token(TokenType.LBRACKET, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == "{":
                         token: Token = Token(TokenType.LBRACE, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == "(":
                         token: Token = Token(TokenType.LPAREN, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == "]":
                         token: Token = Token(TokenType.RBRACKET, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == "}":
                         token: Token = Token(TokenType.RBRACE, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == ")":
                         token: Token = Token(TokenType.RPAREN, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == "=":
                         token: Token = Token(TokenType.EQUAL, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     elif lexeme == ";":
                         token: Token = Token(TokenType.SEMICOLON, lexeme)
                         tokens.append(token)
+                        tokensToParser.append(token)
                 lexeme = ""
                 if self.key_analyzer(character):
                     state = 1
@@ -417,6 +441,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                     state = 0
                     lexeme = ""
                     prev_state = 0
@@ -431,6 +456,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -442,6 +468,7 @@ class Lexer:
                 else:
                     token: Token = Token(TokenType.FLOAT, lexeme)
                     tokens.append(token)
+                    tokensToParser.append(token)
                     state = 0
                     prev_state = 0
                     lexeme = ""
@@ -479,6 +506,7 @@ class Lexer:
                         else:
                             token: Token = Token(TokenType.ILLEGAL, character)
                             tokens.append(token)
+                            tokensToParser.append(token)
                         state = 0
                         lexeme = ""
                         prev_state = 0
@@ -493,6 +521,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -511,6 +540,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -525,6 +555,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -539,6 +570,7 @@ class Lexer:
                     else:
                         token: Token = Token(TokenType.ILLEGAL, character)
                         tokens.append(token)
+                        tokensToParser.append(token)
                         lexeme = ""
                         state = 0
                         prev_state = 0
@@ -548,42 +580,27 @@ class Lexer:
                 else:
                     token: Token = Token(TokenType.ILLEGAL, character)
                     tokens.append(token)
+                    tokensToParser.append(token)
                     lexeme = ""
                     state = 0
-                    prev_state = 0 
-            
+                    prev_state = 0
             # break line
             if character == "\n" or character == "\r":
                 row += 1
-                continue
-            
+                continue          
             # tab
             if  character == "\t":
                 column += 4
                 continue
-            
             # space
             if character == " ":
                 column += 1
                 continue
-            
             # column
             column += 1
-        
         token: Token = Token(TokenType.EOF, "EOF")
         tokens.append(token)
+        tokensToParser.append(token)
 
     def getTokens(self) -> list:
-        return tokens
-
-    '''
-    def getErrors(self) -> list:
-        errors = []
-        for token in tokens:
-            if token.getType() is TokenType.ILLEGAL:
-                error = Error(token.getLiteral(), "Lexico", "Error lexico")
-                errors.append(error)
-        return errors
-    '''
-    
-    
+        return tokens, tokensToParser
