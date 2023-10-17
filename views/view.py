@@ -4,6 +4,7 @@ import os
 
 from controllers.lexer import Lexer
 from controllers.parser import Parser
+from controllers.graph import make_graph
 
 class MenuView():
     menuView = Tk()
@@ -147,4 +148,10 @@ class MenuView():
     def generateErrors(self):
         pass   
     def generateGraphviz(self):
-        pass
+        try:
+            make_graph()
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            self.setConsole("Archivo de reporte generado correctamente: " + dir_path.replace("\\view", '') + "\graphs.gv" + "\n")
+        
+        except:
+            messagebox.showinfo(title="Aviso", message="Ocurrio un error al generar el árbol de derivación")

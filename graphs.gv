@@ -1,0 +1,288 @@
+digraph "Árbol de derivación" {
+	fillcolor=white fontcolor=black fontname=arial fontsize=30 label="Árbol de derivación" rankdir=TB style=filled
+	I0 [label=<inicio> fillcolor=gold fontcolor=black shape=circle style=filled]
+	C0 [label=<claves> fillcolor=gold3 fontcolor=black shape=circle style=filled]
+	I0 -> C0
+	C1 [label="Clave 1" fillcolor=aquamarine1 fontcolor=black shape=circle style=filled]
+	C0 -> C1
+	C2 [label="TokenType.KEY
+Claves" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C2
+	C3 [label="TokenType.EQUAL
+=" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C3
+	C4 [label="TokenType.LBRACKET
+[" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C4
+	C5 [label="\"codigo\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C5
+	C6 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C1 -> C6
+	C7 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C6 -> C7
+	C8 [label="TokenType.KEYWORD
+\"producto\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C6 -> C8
+	C9 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C8 -> C9
+	C10 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C9 -> C10
+	C11 [label="TokenType.KEYWORD
+\"precio_compra\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C9 -> C11
+	C12 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C11 -> C12
+	C13 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C12 -> C13
+	C14 [label="TokenType.KEYWORD
+\"precio_venta\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C12 -> C14
+	C15 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C14 -> C15
+	C16 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C15 -> C16
+	C17 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C15 -> C17
+	C18 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C17 -> C18
+	C19 [label="ε" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C18 -> C19
+	C20 [label="TokenType.RBRACKET
+]" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C20
+	R0 [label=<registros> fillcolor=gold4 fontcolor=white shape=circle style=filled]
+	I0 -> R0
+	R1 [label="Registro 1" fillcolor=dodgerblue fontcolor=white shape=circle style=filled]
+	R0 -> R1
+	R2 [label="TokenType.KEY
+Registros" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R2
+	R3 [label="TokenType.EQUAL
+=" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R3
+	R4 [label="TokenType.LBRACKET
+[" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R4
+	R5 [label=lista_registro fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R1 -> R5
+	R6 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R6
+	R7 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R7
+	R8 [label="TokenType.INTEGER
+1" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R8
+	R9 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R9
+	R10 [label="TokenType.KEYWORD
+\"Barbacoa\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R10
+	R11 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R10 -> R11
+	R12 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R11 -> R12
+	R13 [label="TokenType.FLOAT
+10.50" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R11 -> R13
+	R14 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R13 -> R14
+	R15 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R14 -> R15
+	R16 [label="TokenType.FLOAT
+20.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R14 -> R16
+	R17 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R16 -> R17
+	R18 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R17 -> R18
+	R19 [label="TokenType.INTEGER
+6" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R17 -> R19
+	R20 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R19 -> R20
+	R21 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R20 -> R21
+	R22 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R22
+	R23 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R23
+	R24 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R24
+	R25 [label="TokenType.INTEGER
+2" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R25
+	R26 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R26
+	R27 [label="TokenType.KEYWORD
+\"Salsa\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R27
+	R28 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R27 -> R28
+	R29 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R28 -> R29
+	R30 [label="TokenType.FLOAT
+13.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R28 -> R30
+	R31 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R30 -> R31
+	R32 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R31 -> R32
+	R33 [label="TokenType.FLOAT
+16.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R31 -> R33
+	R34 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R33 -> R34
+	R35 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R34 -> R35
+	R36 [label="TokenType.INTEGER
+7" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R34 -> R36
+	R37 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R36 -> R37
+	R38 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R37 -> R38
+	R39 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R39
+	R40 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R40
+	R41 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R41
+	R42 [label="TokenType.INTEGER
+3" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R42
+	R43 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R43
+	R44 [label="TokenType.KEYWORD
+\"Mayonesa\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R44
+	R45 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R44 -> R45
+	R46 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R45 -> R46
+	R47 [label="TokenType.FLOAT
+15.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R45 -> R47
+	R48 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R47 -> R48
+	R49 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R48 -> R49
+	R50 [label="TokenType.FLOAT
+18.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R48 -> R50
+	R51 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R50 -> R51
+	R52 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R51 -> R52
+	R53 [label="TokenType.INTEGER
+8" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R51 -> R53
+	R54 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R53 -> R54
+	R55 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R54 -> R55
+	R56 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R56
+	R57 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R57
+	R58 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R58
+	R59 [label="TokenType.INTEGER
+4" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R59
+	R60 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R60
+	R61 [label="TokenType.KEYWORD
+\"Mostaza\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R61
+	R62 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R61 -> R62
+	R63 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R62 -> R63
+	R64 [label="TokenType.FLOAT
+14.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R62 -> R64
+	R65 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R64 -> R65
+	R66 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R65 -> R66
+	R67 [label="TokenType.FLOAT
+16.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R65 -> R67
+	R68 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R67 -> R68
+	R69 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R68 -> R69
+	R70 [label="TokenType.INTEGER
+4" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R68 -> R70
+	R71 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R70 -> R71
+	R72 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R71 -> R72
+	R73 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R73
+	R74 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R5 -> R74
+	R75 [label="TokenType.RBRACKET
+]" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R75
+	F0 [label=<funciones> fillcolor=goldenrod fontcolor=black shape=circle style=filled]
+	I0 -> F0
+	F1 [label="Función 1" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F1
+	F2 [label="Función 2" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F2
+	F3 [label="Función 3" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F3
+	F4 [label="Función 4" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F4
+	F5 [label="Función 5" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F5
+	F6 [label="Función 6" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F6
+	F7 [label="Función 7" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F7
+	F8 [label="Función 8" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F8
+	F9 [label="Función 9" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F9
+	F10 [label="Función 10" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F10
+	F11 [label="Función 11" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F11
+	F12 [label="Función 12" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F12
+	F13 [label="Función 13" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F13
+	F14 [label="Función 14" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F14
+}

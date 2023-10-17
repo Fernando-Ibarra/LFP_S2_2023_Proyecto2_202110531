@@ -2,6 +2,11 @@ from controllers.token import (
     Token,
     TokenType
 )
+from controllers.graph import dot
+
+correlativeC = 1
+correlativeR = 1
+correlativeF = 1
 
 class Parser():
     def __init__(self, tokens) -> None:
@@ -10,30 +15,60 @@ class Parser():
         self.listaRegistros = []
         
     def parse(self):
+        dot.node(f'I0', '<inicio>', fillcolor='gold', style='filled', shape='circle', fontcolor='black')
         self.inicio()
 
     # <inicio> ::= <claves> <registros> <funciones>        
     def inicio(self):
+        dot.node(f'C0', '<claves>', fillcolor='gold3', style='filled', shape='circle', fontcolor='black')
+        dot.edge('I0', 'C0')
         self.claves()
+        dot.node(f'R0', '<registros>', fillcolor='gold4', style='filled', shape='circle', fontcolor='white')
+        dot.edge('I0', 'R0')
         self.registros()
+        dot.node(f'F0', '<funciones>', fillcolor='goldenrod', style='filled', shape='circle', fontcolor='black')
+        dot.edge('I0', 'F0')
         self.funciones()
 
     # <claves> ::= KEY EQUAL LBRACKET KEYWORD <otra_clave> RBRACKET
     def claves(self):
+        global correlativeC
+        dot.node(f'C{ correlativeC }', f'Clave {correlativeC}', fillcolor='aquamarine1', style='filled', shape='circle', fontcolor='black')
+        dot.edge('C0', f'C{ correlativeC }')
+        base = correlativeC
+        correlativeC += 1
         if self.tokens[0].token_type == TokenType.KEY:
-            self.tokens.pop(0)
+            nodeTkn = self.tokens.pop(0)
+            dot.node(f'C{ correlativeC }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+            dot.edge(f'C{ base }', f'C{ correlativeC }')
+            correlativeC += 1
             if self.tokens[0].token_type == TokenType.EQUAL:
-                self.tokens.pop(0)
+                nodeTkn = self.tokens.pop(0)
+                dot.node(f'C{ correlativeC }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+                dot.edge(f'C{ base }', f'C{ correlativeC }')
+                correlativeC += 1
                 if self.tokens[0].token_type == TokenType.LBRACKET:
-                    self.tokens.pop(0)
+                    nodeTkn = self.tokens.pop(0)
+                    dot.node(f'C{ correlativeC }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+                    dot.edge(f'C{ base }', f'C{ correlativeC }')
+                    correlativeC += 1
                     if self.tokens[0].token_type == TokenType.KEYWORD:
                         clave = self.tokens.pop(0)
+                        dot.node(f'C{ correlativeC }', f'{ clave.literal }', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+                        dot.edge(f'C{ base }', f'C{ correlativeC }')
+                        correlativeC += 1
                         self.listaClaves.append(clave.literal)
-                        self.otraClave()
+                        dot.node(f'C{ correlativeC }', '<otraClave>', fillcolor='aquamarine3', style='filled', shape='circle', fontcolor='black')
+                        dot.edge(f'C{ base }', f'C{ correlativeC }')
+                        basetoNode = correlativeC
+                        correlativeC += 1
+                        self.otraClave(basetoNode)
                         if self.tokens[0].token_type == TokenType.RBRACKET:
-                            self.tokens.pop(0)
+                            nodeTkn = self.tokens.pop(0)
+                            dot.node(f'C{ correlativeC }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+                            dot.edge(f'C{ base }', f'C{ correlativeC }')
+                            correlativeC += 1
                         else:
-                            print(f"{ self.tokens[0].token_type }")
                             print("Error: Se esperaba un corchete derecho de cierre")
                 else:
                     print("Error: Se esperaba un corchete izquierdo de apertura")
@@ -43,31 +78,66 @@ class Parser():
             print("Error: Se esperaba una KEY - claves")
         
     # <otra_clave> ::= COMMA KEYWORD <otra_clave | ε
-    def otraClave(self):
+    def otraClave(self, baseNode):
+        global correlativeC
         if self.tokens[0].token_type == TokenType.COMMA:
-            self.tokens.pop(0)
+            nodeTkn = self.tokens.pop(0)
+            dot.node(f'C{ correlativeC }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+            dot.edge(f'C{ baseNode }', f'C{ correlativeC }')
+            correlativeC += 1
             if self.tokens[0].token_type == TokenType.KEYWORD:
                 clave = self.tokens.pop(0)
+                dot.node(f'C{ correlativeC }', f'{ clave.token_type }\n{clave.literal}', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+                dot.edge(f'C{ baseNode }', f'C{ correlativeC }')
+                baseNodePrev = correlativeC
+                correlativeC += 1
                 self.listaClaves.append(clave.literal)
-                self.otraClave()
+                dot.node(f'C{ correlativeC }', '<otraClave>', fillcolor='aquamarine3', style='filled', shape='circle', fontcolor='black')
+                dot.edge(f'C{ baseNodePrev }', f'C{ correlativeC }')
+                basetoNode = correlativeC
+                correlativeC += 1
+                self.otraClave(basetoNode)
             else:
                 print("Error: Se esperaba una KEYWORD")
         else:
-            # epsilon is accepted
+            dot.node(f'C{ correlativeC }', 'ε', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
+            dot.edge(f'C{ baseNode }', f'C{ correlativeC }')
+            correlativeC += 1
             pass
         
     # <registros> ::= KEY EQUAL LBRACKET <registro> <otroRegistro> RBRACKET
     def registros(self):
+        global correlativeR
+        dot.node(f'R{ correlativeR }', f'Registro {correlativeR}', fillcolor='dodgerblue', style='filled', shape='circle', fontcolor='white')
+        dot.edge('R0', f'R{ correlativeR }')
+        base = correlativeR
+        correlativeR += 1
         if self.tokens[0].token_type == TokenType.KEY:
-            self.tokens.pop(0)
+            nodeTkn = self.tokens.pop(0)
+            dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'R{ base }', f'R{ correlativeR }')
+            correlativeR += 1
             if self.tokens[0].token_type == TokenType.EQUAL:
-                self.tokens.pop(0)
+                nodeTkn = self.tokens.pop(0)
+                dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+                dot.edge(f'R{ base }', f'R{ correlativeR }')
+                correlativeR += 1
                 if self.tokens[0].token_type == TokenType.LBRACKET:
-                    self.tokens.pop(0)
-                    self.registro()
-                    self.otroRegistro()
+                    nodeTkn = self.tokens.pop(0)
+                    dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+                    dot.edge(f'R{ base }', f'R{ correlativeR }')
+                    correlativeR += 1
+                    dot.node(f'R{ correlativeR }', 'lista_registro', fillcolor='dodgerblue4', style='filled', shape='circle', fontcolor='white')
+                    dot.edge(f'R{ base }', f'R{ correlativeR }')
+                    baseNode = correlativeR
+                    correlativeR += 1
+                    self.registro(baseNode)
+                    self.otroRegistro(baseNode)
                     if self.tokens[0].token_type == TokenType.RBRACKET:
-                        self.tokens.pop(0)
+                        nodeTkn = self.tokens.pop(0)
+                        dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+                        dot.edge(f'R{ base }', f'R{ correlativeR }')
+                        correlativeR += 1
                     else:
                         print("Error: Se esperaba un corchete derecho de cierre")
                 else:
@@ -78,16 +148,30 @@ class Parser():
             print("Error: Se esperaba una KEY - registros")
     
     # <registro> ::= LBRACE <valor> <otroValor> RBRACE
-    def registro(self):
+    def registro(self, baseNode):
+        global correlativeR
+        dot.node(f'R{ correlativeR }', 'registro_item', fillcolor='dodgerblue2', style='filled', shape='circle', fontcolor='white')
+        dot.edge(f'R{ baseNode }', f'R{ correlativeR }')
+        base = correlativeR
+        correlativeR += 1
         if self.tokens[0].token_type == TokenType.LBRACE:
-            self.tokens.pop(0)
+            nodeTkn = self.tokens.pop(0)
+            dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'R{ base }', f'R{ correlativeR }')
+            correlativeR += 1
             res = self.valor()
+            dot.node(f'R{ correlativeR }', f'{ res.token_type }\n{res.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'R{ base }', f'R{ correlativeR }')
+            correlativeR += 1
             if res is not None:
                 registro = []
                 registro.append(res.literal)
-                self.otroValor(registro)
+                self.otroValor(registro, base)
                 if self.tokens[0].token_type == TokenType.RBRACE:
-                    self.tokens.pop(0)
+                    nodeTkn = self.tokens.pop(0)
+                    dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white')
+                    dot.edge(f'R{ base }', f'R{ correlativeR }')
+                    correlativeR += 1
                     self.listaRegistros.append(registro)
                 else:
                     print("Error: Se esperaba un corchete derecho de cierre") 
@@ -96,6 +180,7 @@ class Parser():
     
     # <valor> ::= KEYWORD | INTEGER | FLOAT
     def valor(self):
+        global correlativeR
         if self.tokens[0].token_type == TokenType.KEYWORD or self.tokens[0].token_type == TokenType.INTEGER or self.tokens[0].token_type == TokenType.FLOAT:
             res = self.tokens.pop(0)
             return res
@@ -104,24 +189,42 @@ class Parser():
             return None
     
     # <otroValor> ::= COMMA <valor> <otroValor> | ε
-    def otroValor(self, registro):
+    def otroValor(self, registro, baseNodeOtroVal):
+        global correlativeR
         if self.tokens[0].token_type == TokenType.COMMA:
-            self.tokens.pop(0)
+            nodeTkn = self.tokens.pop(0)
+            dot.node(f'R{ correlativeR }', f'{ nodeTkn.token_type }\n{nodeTkn.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white',)
+            dot.edge(f'R{ baseNodeOtroVal }', f'R{ correlativeR }')
+            correlativeR += 1
             res = self.valor()
+            dot.node(f'R{ correlativeR }', f'{ res.token_type }\n{res.literal}', fillcolor='dodgerblue3', style='filled', shape='circle', fontcolor='white', )
+            dot.edge(f'R{ baseNodeOtroVal }', f'R{ correlativeR }')
+            baseNodeValToTroVal = correlativeR
+            correlativeR += 1
             if res is not None:
                 registro.append(res.literal)
-                self.otroValor(registro)
+                dot.node(f'R{ correlativeR }', '<otroValor>', fillcolor='dodgerblue4', style='filled', shape='circle', fontcolor='white', )
+                dot.edge(f'R{ baseNodeValToTroVal }', f'R{ correlativeR }')
+                baseNode2 = correlativeR
+                correlativeR += 1
+                self.otroValor(registro, baseNode2)
         else:
-            # epsilon is accepted
+            dot.node(f'R{ correlativeR }', 'ε', fillcolor='dodgerblue1', style='filled', shape='circle', fontcolor='black', )
+            dot.edge(f'R{ baseNodeOtroVal }', f'R{ correlativeR }')
+            correlativeR += 1
             pass
     
     # <otroRegistro> ::= <registro> <otroRegistro> | ε
-    def otroRegistro(self):
+    def otroRegistro(self, baseNode):
+        global correlativeR
         if self.tokens[0].token_type == TokenType.LBRACE:
-            self.registro()
-            self.otroRegistro()
+            # self.tokens.pop(0)
+            self.registro(baseNode)
+            self.otroRegistro(baseNode)
         else:
-            # epsilon is accepted
+            dot.node(f'R{ correlativeR }', 'ε', fillcolor='dodgerblue1', style='filled', shape='circle', fontcolor='black')
+            dot.edge(f'R{ baseNode }', f'R{ correlativeR }')
+            correlativeR += 1
             pass
     
     # <funciones> ::= <funcion> <otraFuncion>
@@ -131,6 +234,10 @@ class Parser():
     
     # <funcion> ::= KEY LPAREN <parametros> RPAREN SEMICOLON
     def funcion(self):
+        global correlativeF
+        dot.node(f'F{ correlativeF }', f'Función {correlativeF}', fillcolor='firebrick', style='filled', shape='circle', fontcolor='white')
+        dot.edge('F0', f'F{ correlativeF }')
+        correlativeF += 1
         if self.tokens[0].token_type == TokenType.KEY:
             tipo = self.tokens.pop(0)
             if self.tokens[0].token_type == TokenType.LPAREN:
