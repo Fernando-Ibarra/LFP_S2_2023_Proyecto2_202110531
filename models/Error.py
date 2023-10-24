@@ -1,10 +1,8 @@
-from controllers.token import (
-    TokenType
-)
+errorsList = []
 
 class Error:
     
-    def __init__(self, tipo: TokenType, lexema: str, row: int, column: int) -> None:
+    def __init__(self, tipo: str, lexema: str, row: int, column: int) -> None:
         self.tipo = tipo
         self.lexema = lexema
         self.row = row

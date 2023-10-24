@@ -1,0 +1,590 @@
+digraph "Árbol de derivación" {
+	fillcolor=white fontcolor=black fontname=arial fontsize=30 label="Árbol de derivación" rankdir=TB style=filled
+	I0 [label=<inicio> fillcolor=gold fontcolor=black shape=circle style=filled]
+	C0 [label=<claves> fillcolor=gold3 fontcolor=black shape=circle style=filled]
+	I0 -> C0
+	C1 [label="Clave 1" fillcolor=aquamarine1 fontcolor=black shape=circle style=filled]
+	C0 -> C1
+	C2 [label="TokenType.KEY
+Claves" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C2
+	C3 [label="TokenType.EQUAL
+=" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C3
+	C4 [label="TokenType.LBRACKET
+[" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C4
+	C5 [label="\"codigo\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C5
+	C6 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C1 -> C6
+	C7 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C6 -> C7
+	C8 [label="TokenType.KEYWORD
+\"producto\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C6 -> C8
+	C9 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C8 -> C9
+	C10 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C9 -> C10
+	C11 [label="TokenType.KEYWORD
+\"precio_compra\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C9 -> C11
+	C12 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C11 -> C12
+	C13 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C12 -> C13
+	C14 [label="TokenType.KEYWORD
+\"precio_venta\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C12 -> C14
+	C15 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C14 -> C15
+	C16 [label="TokenType.COMMA
+," fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C15 -> C16
+	C17 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C15 -> C17
+	C18 [label=<otraClave> fillcolor=aquamarine3 fontcolor=black shape=circle style=filled]
+	C17 -> C18
+	C19 [label="ε" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C18 -> C19
+	C20 [label="TokenType.RBRACKET
+]" fillcolor=aquamarine2 fontcolor=black shape=circle style=filled]
+	C1 -> C20
+	R0 [label=<registros> fillcolor=gold4 fontcolor=white shape=circle style=filled]
+	I0 -> R0
+	R1 [label="Registro 1" fillcolor=dodgerblue fontcolor=white shape=circle style=filled]
+	R0 -> R1
+	R2 [label="TokenType.KEY
+Registros" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R2
+	R3 [label="TokenType.EQUAL
+=" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R3
+	R4 [label="TokenType.LBRACKET
+[" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R4
+	R5 [label=lista_registro fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R1 -> R5
+	R6 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R6
+	R7 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R7
+	R8 [label="TokenType.INTEGER
+1" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R8
+	R9 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R9
+	R10 [label="TokenType.KEYWORD
+\"Barbacoa\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R10
+	R11 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R10 -> R11
+	R12 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R11 -> R12
+	R13 [label="TokenType.FLOAT
+10.50" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R11 -> R13
+	R14 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R13 -> R14
+	R15 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R14 -> R15
+	R16 [label="TokenType.FLOAT
+20.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R14 -> R16
+	R17 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R16 -> R17
+	R18 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R17 -> R18
+	R19 [label="TokenType.INTEGER
+6" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R17 -> R19
+	R20 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R19 -> R20
+	R21 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R20 -> R21
+	R22 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R6 -> R22
+	R23 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R23
+	R24 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R24
+	R25 [label="TokenType.INTEGER
+2" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R25
+	R26 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R26
+	R27 [label="TokenType.KEYWORD
+\"Salsa\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R27
+	R28 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R27 -> R28
+	R29 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R28 -> R29
+	R30 [label="TokenType.FLOAT
+13.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R28 -> R30
+	R31 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R30 -> R31
+	R32 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R31 -> R32
+	R33 [label="TokenType.FLOAT
+16.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R31 -> R33
+	R34 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R33 -> R34
+	R35 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R34 -> R35
+	R36 [label="TokenType.INTEGER
+8" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R34 -> R36
+	R37 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R36 -> R37
+	R38 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R37 -> R38
+	R39 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R23 -> R39
+	R40 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R40
+	R41 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R41
+	R42 [label="TokenType.INTEGER
+3" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R42
+	R43 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R43
+	R44 [label="TokenType.KEYWORD
+\"Mayonesa\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R44
+	R45 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R44 -> R45
+	R46 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R45 -> R46
+	R47 [label="TokenType.FLOAT
+15.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R45 -> R47
+	R48 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R47 -> R48
+	R49 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R48 -> R49
+	R50 [label="TokenType.FLOAT
+18.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R48 -> R50
+	R51 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R50 -> R51
+	R52 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R51 -> R52
+	R53 [label="TokenType.INTEGER
+8" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R51 -> R53
+	R54 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R53 -> R54
+	R55 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R54 -> R55
+	R56 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R40 -> R56
+	R57 [label=registro_item fillcolor=dodgerblue2 fontcolor=white shape=circle style=filled]
+	R5 -> R57
+	R58 [label="TokenType.LBRACE
+{" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R58
+	R59 [label="TokenType.INTEGER
+4" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R59
+	R60 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R60
+	R61 [label="TokenType.KEYWORD
+\"Mostaza\"" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R61
+	R62 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R61 -> R62
+	R63 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R62 -> R63
+	R64 [label="TokenType.FLOAT
+14.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R62 -> R64
+	R65 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R64 -> R65
+	R66 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R65 -> R66
+	R67 [label="TokenType.FLOAT
+16.00" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R65 -> R67
+	R68 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R67 -> R68
+	R69 [label="TokenType.COMMA
+," fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R68 -> R69
+	R70 [label="TokenType.INTEGER
+4" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R68 -> R70
+	R71 [label=<otroValor> fillcolor=dodgerblue4 fontcolor=white shape=circle style=filled]
+	R70 -> R71
+	R72 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R71 -> R72
+	R73 [label="TokenType.RBRACE
+}" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R57 -> R73
+	R74 [label="ε" fillcolor=dodgerblue1 fontcolor=black shape=circle style=filled]
+	R5 -> R74
+	R75 [label="TokenType.RBRACKET
+]" fillcolor=dodgerblue3 fontcolor=white shape=circle style=filled]
+	R1 -> R75
+	F0 [label=<funciones> fillcolor=goldenrod fontcolor=black shape=circle style=filled]
+	I0 -> F0
+	F1 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F1
+	F2 [label="TokenType.KEY
+imprimir" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F1 -> F2
+	F3 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F1 -> F3
+	F4 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F1 -> F4
+	F5 [label="TokenType.KEYWORD
+\"Reporte de \"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F4 -> F5
+	F6 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F4 -> F6
+	F7 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F6 -> F7
+	F8 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F1 -> F8
+	F9 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F1 -> F9
+	F10 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F10
+	F11 [label="TokenType.KEY
+imprimir" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F10 -> F11
+	F12 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F10 -> F12
+	F13 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F10 -> F13
+	F14 [label="TokenType.KEYWORD
+\"Abarroteria\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F13 -> F14
+	F15 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F13 -> F15
+	F16 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F15 -> F16
+	F17 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F10 -> F17
+	F18 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F10 -> F18
+	F19 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F19
+	F20 [label="TokenType.KEY
+imprimirln" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F19 -> F20
+	F21 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F19 -> F21
+	F22 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F19 -> F22
+	F23 [label="TokenType.KEYWORD
+\"Reporte de \"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F22 -> F23
+	F24 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F22 -> F24
+	F25 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F24 -> F25
+	F26 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F19 -> F26
+	F27 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F19 -> F27
+	F28 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F28
+	F29 [label="TokenType.KEY
+imprimirln" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F28 -> F29
+	F30 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F28 -> F30
+	F31 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F28 -> F31
+	F32 [label="TokenType.KEYWORD
+\"Abarroteria\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F31 -> F32
+	F33 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F31 -> F33
+	F34 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F33 -> F34
+	F35 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F28 -> F35
+	F36 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F28 -> F36
+	F37 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F37
+	F38 [label="TokenType.KEY
+conteo" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F37 -> F38
+	F39 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F37 -> F39
+	F40 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F37 -> F40
+	F41 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F40 -> F41
+	F42 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F37 -> F42
+	F43 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F37 -> F43
+	F44 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F44
+	F45 [label="TokenType.KEY
+promedio" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F44 -> F45
+	F46 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F44 -> F46
+	F47 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F44 -> F47
+	F48 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F47 -> F48
+	F49 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F47 -> F49
+	F50 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F49 -> F50
+	F51 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F44 -> F51
+	F52 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F44 -> F52
+	F53 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F53
+	F54 [label="TokenType.KEY
+contarsi" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F53 -> F54
+	F55 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F53 -> F55
+	F56 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F53 -> F56
+	F57 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F56 -> F57
+	F58 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F56 -> F58
+	F59 [label="TokenType.COMMA
+," fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F58 -> F59
+	F60 [label="TokenType.INTEGER
+6" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F58 -> F60
+	F61 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F60 -> F61
+	F62 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F53 -> F62
+	F63 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F53 -> F63
+	F64 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F64
+	F65 [label="TokenType.KEY
+contarsi" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F64 -> F65
+	F66 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F64 -> F66
+	F67 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F64 -> F67
+	F68 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F67 -> F68
+	F69 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F67 -> F69
+	F70 [label="TokenType.COMMA
+," fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F69 -> F70
+	F71 [label="TokenType.INTEGER
+8" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F69 -> F71
+	F72 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F71 -> F72
+	F73 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F64 -> F73
+	F74 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F64 -> F74
+	F75 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F75
+	F76 [label="TokenType.KEY
+contarsi" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F75 -> F76
+	F77 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F75 -> F77
+	F78 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F75 -> F78
+	F79 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F78 -> F79
+	F80 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F78 -> F80
+	F81 [label="TokenType.COMMA
+," fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F80 -> F81
+	F82 [label="TokenType.INTEGER
+4" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F80 -> F82
+	F83 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F82 -> F83
+	F84 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F75 -> F84
+	F85 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F75 -> F85
+	F86 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F86
+	F87 [label="TokenType.KEY
+datos" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F86 -> F87
+	F88 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F86 -> F88
+	F89 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F86 -> F89
+	F90 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F89 -> F90
+	F91 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F86 -> F91
+	F92 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F86 -> F92
+	F93 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F93
+	F94 [label="TokenType.KEY
+sumar" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F93 -> F94
+	F95 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F93 -> F95
+	F96 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F93 -> F96
+	F97 [label="TokenType.KEYWORD
+\"stock\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F96 -> F97
+	F98 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F96 -> F98
+	F99 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F98 -> F99
+	F100 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F93 -> F100
+	F101 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F93 -> F101
+	F102 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F102
+	F103 [label="TokenType.KEY
+max" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F102 -> F103
+	F104 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F102 -> F104
+	F105 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F102 -> F105
+	F106 [label="TokenType.KEYWORD
+\"precio_venta\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F105 -> F106
+	F107 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F105 -> F107
+	F108 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F107 -> F108
+	F109 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F102 -> F109
+	F110 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F102 -> F110
+	F111 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F111
+	F112 [label="TokenType.KEY
+min" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F111 -> F112
+	F113 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F111 -> F113
+	F114 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F111 -> F114
+	F115 [label="TokenType.KEYWORD
+\"precio_compra\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F114 -> F115
+	F116 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F114 -> F116
+	F117 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F116 -> F117
+	F118 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F111 -> F118
+	F119 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F111 -> F119
+	F120 [label="Función" fillcolor=firebrick fontcolor=white shape=circle style=filled]
+	F0 -> F120
+	F121 [label="TokenType.KEY
+exportarReporte" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F120 -> F121
+	F122 [label="TokenType.LPAREN
+(" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F120 -> F122
+	F123 [label=<lista_parametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F120 -> F123
+	F124 [label="TokenType.KEYWORD
+\"Reporte HTML de abarroteria\"" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F123 -> F124
+	F125 [label=<otroParametro> fillcolor=firebrick3 fontcolor=white shape=circle style=filled]
+	F123 -> F125
+	F126 [label="ε" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F125 -> F126
+	F127 [label="TokenType.RPAREN
+)" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F120 -> F127
+	F128 [label="TokenType.SEMICOLON
+;" fillcolor=firebrick1 fontcolor=white shape=circle style=filled]
+	F120 -> F128
+}

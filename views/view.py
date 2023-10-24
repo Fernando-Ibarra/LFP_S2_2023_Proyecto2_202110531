@@ -1,10 +1,13 @@
 from tkinter import *
 from tkinter import filedialog, messagebox
+import codecs
 import os
 
 from controllers.lexer import Lexer
 from controllers.parser import Parser
 from controllers.graph import make_graph
+from controllers.errors import processErrors
+from controllers.html import Html
 
 class MenuView():
     menuView = Tk()
@@ -85,10 +88,10 @@ class MenuView():
             row=1,
             column=4,
         )
-        self.editor = Text(self.menuView, width=100, height=37, bg="#DDFFF7", fg="black", font=("Arial", 10))
+        self.editor = Text(self.menuView, width=80, height=37, bg="#DDFFF7", fg="black", font=("Arial", 10))
         self.editor.grid(row=2, column=0, columnspan=5, padx=15, ipadx=15, ipady=10)
         # block the console
-        self.console = Text(self.menuView, width=50, height=37, bg="black", fg="#96E2D9", state="disabled", font=("Arial", 10))
+        self.console = Text(self.menuView, width=70, height=37, bg="black", fg="#96E2D9", state="disabled", font=("Arial", 10))
         self.console.grid(row=2, column=6, columnspan=5, padx=5, ipadx=5, ipady=10)
     # set text to the console
     def setConsole(self, textIn):
@@ -132,7 +135,6 @@ class MenuView():
             else:
                 lex = Lexer(jsonString)
                 lex.analyze()
-                self.setConsole("Archivo analizado correctamente\n")
                 
                 tokens, tokensToParser = lex.getTokens()
                 for token in tokens:
@@ -141,12 +143,28 @@ class MenuView():
                 parser = Parser(tokensToParser)
                 try:
                     parser.parse()
+                    self.setConsole("\n")
+                    
+                    for result in parser.getResults():
+                        self.setConsole(str(result) + "\n")
+                        
+                    html = Html(parser.getListaClaves(), parser.getListaRegistros())
+                    html_text = html.make_html()
+                    
+                    file_html = codecs.open("reporte.html", "w", "utf-8")
+                    file_html.write(html_text)
+                    file_html.close()
                 except:
                     print("Error: No se pudo analizar el archivo")
         except:
             messagebox.showinfo(title="Aviso", message="Ocurrio un error al analizar el archivo")   
     def generateErrors(self):
-        pass   
+        try:
+            processErrors()
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            self.setConsole("Archivo de errores generado correctamente: " + dir_path.replace("\\view", '') + "\RESULTADOS_202110531.json" + "\n")
+        except:
+            messagebox.showinfo(title="Aviso", message="Ocurrio un error al generar el reporte de errores")  
     def generateGraphviz(self):
         try:
             make_graph()

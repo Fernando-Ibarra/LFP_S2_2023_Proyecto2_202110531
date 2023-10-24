@@ -3,6 +3,7 @@ from controllers.token import (
     TokenType
 )
 from controllers.graph import dot
+from models.Error import Error, errorsList
 
 correlativeC = 1
 correlativeR = 1
@@ -13,6 +14,15 @@ class Parser():
         self.tokens = tokens
         self.listaClaves = []
         self.listaRegistros = []
+        self.results = []
+        self.params = ""
+        
+    def recovery(self, tokenType: str):
+        while self.tokens[0].token_type != TokenType.EOF:
+            if self.tokens[0].token_type == tokenType:
+                break
+            else:
+                self.tokens.pop(0)
         
     def parse(self):
         dot.node(f'I0', '<inicio>', fillcolor='gold', style='filled', shape='circle', fontcolor='black')
@@ -69,12 +79,24 @@ class Parser():
                             dot.edge(f'C{ base }', f'C{ correlativeC }')
                             correlativeC += 1
                         else:
+                            error: Error = Error("Sintáctico", f"Se esperaba un corchete derecho de cierre", self.tokens[0].row, self.tokens[0].column)
+                            errorsList.append(error)
+                            self.recovery(TokenType.RBRACKET)
                             print("Error: Se esperaba un corchete derecho de cierre")
                 else:
+                    error: Error = Error("Sintáctico", f"Se esperaba un corchete izquierdo de apertura", self.tokens[0].row, self.tokens[0].column)
+                    errorsList.append(error)
+                    self.recovery(TokenType.LBRACKET)
                     print("Error: Se esperaba un corchete izquierdo de apertura")
             else:
+                error: Error = Error("Sintáctico", "Se esperaba un =", self.tokens[0].row, self.tokens[0].column)
+                errorsList.append(error)
+                self.recovery(TokenType.EQUAL)
                 print("Error: Se esperaba un signo igual")
         else:
+            error: Error = Error("Sintáctico", "Se esperaba una KEY - claves", self.tokens[0].row, self.tokens[0].column)
+            errorsList.append(error)
+            self.recovery(TokenType.KEY)
             print("Error: Se esperaba una KEY - claves")
         
     # <otra_clave> ::= COMMA KEYWORD <otra_clave | ε
@@ -98,6 +120,9 @@ class Parser():
                 correlativeC += 1
                 self.otraClave(basetoNode)
             else:
+                error: Error = Error("Sintáctico", f"Se esperaba una KEYWORD", self.tokens[0].row, self.tokens[0].column)
+                errorsList.append(error)
+                self.recovery(TokenType.KEYWORD)
                 print("Error: Se esperaba una KEYWORD")
         else:
             dot.node(f'C{ correlativeC }', 'ε', fillcolor='aquamarine2', style='filled', shape='circle', fontcolor='black')
@@ -139,12 +164,24 @@ class Parser():
                         dot.edge(f'R{ base }', f'R{ correlativeR }')
                         correlativeR += 1
                     else:
+                        error: Error = Error("Sintáctico", f"Se esperaba un corchete derecho de cierre", self.tokens[0].row, self.tokens[0].column)
+                        errorsList.append(error)
+                        self.recovery(TokenType.RBRACKET)
                         print("Error: Se esperaba un corchete derecho de cierre")
                 else:
+                    error: Error = Error("Sintáctico", f"Se esperaba un corchete izquierdo de apertura", self.tokens[0].row, self.tokens[0].column)
+                    errorsList.append(error)
+                    self.recovery(TokenType.LBRACKET)
                     print("Error: Se esperaba un corchete izquierdo de apertura")
             else:
+                error: Error = Error("Sintáctico", f"Se esperaba un =", self.tokens[0].row, self.tokens[0].column)
+                errorsList.append(error)
+                self.recovery(TokenType.EQUAL)
                 print("Error: Se esperaba un signo igual")
         else:
+            error: Error = Error("Sintáctico", f"Se esperaba una KEY - registros", self.tokens[0].row, self.tokens[0].column)
+            errorsList.append(error)
+            self.recovery(TokenType.KEY)
             print("Error: Se esperaba una KEY - registros")
     
     # <registro> ::= LBRACE <valor> <otroValor> RBRACE
@@ -174,8 +211,14 @@ class Parser():
                     correlativeR += 1
                     self.listaRegistros.append(registro)
                 else:
+                    error: Error = Error("Sintáctico", f"Se esperaba un corchete derecho de cierre", self.tokens[0].row, self.tokens[0].column)
+                    errorsList.append(error)
+                    self.recovery(TokenType.RBRACE)
                     print("Error: Se esperaba un corchete derecho de cierre") 
         else:
+            error: Error = Error("Sintáctico", f"Se esperaba un corchete izquierdo de apertura", self.tokens[0].row, self.tokens[0].column)
+            errorsList.append(error)
+            self.recovery(TokenType.LBRACE)
             print("Error: Se esperaba un corchete izquierdo de apertura")
     
     # <valor> ::= KEYWORD | INTEGER | FLOAT
@@ -185,6 +228,9 @@ class Parser():
             res = self.tokens.pop(0)
             return res
         else:
+            error: Error = Error("Sintáctico", f"No se esperaba un { self.tokens[0].literal }", self.tokens[0].row, self.tokens[0].column)
+            errorsList.append(error)
+            self.recovery(TokenType.LBRACE)
             print("Error: Se esperaba una KEYWORD, INTEGER o FLOAT")
             return None
     
@@ -218,7 +264,6 @@ class Parser():
     def otroRegistro(self, baseNode):
         global correlativeR
         if self.tokens[0].token_type == TokenType.LBRACE:
-            # self.tokens.pop(0)
             self.registro(baseNode)
             self.otroRegistro(baseNode)
         else:
@@ -235,48 +280,100 @@ class Parser():
     # <funcion> ::= KEY LPAREN <parametros> RPAREN SEMICOLON
     def funcion(self):
         global correlativeF
-        dot.node(f'F{ correlativeF }', f'Función {correlativeF}', fillcolor='firebrick', style='filled', shape='circle', fontcolor='white')
+        dot.node(f'F{ correlativeF }', f'Función', fillcolor='firebrick', style='filled', shape='circle', fontcolor='white')
         dot.edge('F0', f'F{ correlativeF }')
+        base = correlativeF
         correlativeF += 1
         if self.tokens[0].token_type == TokenType.KEY:
             tipo = self.tokens.pop(0)
+            dot.node(f'F{ correlativeF }', f'{ tipo.token_type }\n{ tipo.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'F{ base }', f'F{ correlativeF }')
+            correlativeF += 1
             if self.tokens[0].token_type == TokenType.LPAREN:
-                self.tokens.pop(0)
-                parametros = self.parametros()
+                nodeTkn = self.tokens.pop(0)
+                dot.node(f'F{ correlativeF }', f'{ nodeTkn.token_type }\n{ nodeTkn.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+                dot.edge(f'F{ base }', f'F{ correlativeF }')
+                correlativeF += 1
+                dot.node(f'F{ correlativeF }', f'<lista_parametro>', fillcolor='firebrick3', style='filled', shape='circle', fontcolor='white')
+                dot.edge(f'F{ base }', f'F{ correlativeF }')
+                baseListParam = correlativeF
+                correlativeF += 1
+                parametros = self.parametros(baseListParam)
                 if self.tokens[0].token_type == TokenType.RPAREN:
-                    self.tokens.pop(0)
+                    nodeTkn = self.tokens.pop(0)
+                    dot.node(f'F{ correlativeF }', f'{ nodeTkn.token_type }\n{ nodeTkn.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+                    dot.edge(f'F{ base }', f'F{ correlativeF }')
+                    correlativeF += 1
                     if self.tokens[0].token_type == TokenType.SEMICOLON:
-                        self.tokens.pop(0)
+                        nodeTkn = self.tokens.pop(0)
+                        dot.node(f'F{ correlativeF }', f'{ nodeTkn.token_type }\n{ nodeTkn.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+                        dot.edge(f'F{ base }', f'F{ correlativeF }')
+                        correlativeF += 1
                         self.operarFuncion(tipo, parametros)
                     else:
+                        error: Error = Error("Sintáctico", f"Se esperaba un { self.tokens[0].literal }", self.tokens[0].row, self.tokens[0].column)
+                        errorsList.append(error)
+                        self.recovery(TokenType.SEMICOLON)
                         print("Error: Se esperaba un punto y coma")
                 else:
+                    error: Error = Error("Sintáctico", f"Se esperaba un { self.tokens[0].literal }", self.tokens[0].row, self.tokens[0].column)
+                    errorsList.append(error)
+                    self.recovery(TokenType.RPAREN)
                     print("Error: Se esperaba un parentesis derecho de cierre")
             else:
+                error: Error = Error("Sintáctico", f"Se esperaba un { self.tokens[0].literal }", self.tokens[0].row, self.tokens[0].column)
+                errorsList.append(error)
+                self.recovery(TokenType.LPAREN)
                 print("Error: Se esperaba un parentesis izquierdo de apertura")
         else:
+            error: Error = Error("Sintáctico", f"Se esperaba un { self.tokens[0].literal }", self.tokens[0].row, self.tokens[0].column)
+            errorsList.append(error)
+            self.recovery(TokenType.KEY)
             print("Error: Se esperaba una KEY")
     
     # <parametros> ::= <valor> <otroParametro> | ε
-    def parametros(self):
+    def parametros(self, base):
+        global correlativeF
         parametros = []
         if self.tokens[0].token_type != TokenType.RPAREN:
             valor = self.valor()
+            dot.node(f'F{ correlativeF }', f'{ valor.token_type }\n{ valor.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'F{ base }', f'F{ correlativeF }')
+            correlativeF += 1
             if valor is not None:
                 parametros = [valor]
-                self.otroParametro(parametros)
+                dot.node(f'F{ correlativeF }', f'<otroParametro>', fillcolor='firebrick3', style='filled', shape='circle', fontcolor='white')
+                dot.edge(f'F{ base }', f'F{ correlativeF }')
+                baseOtherParam = correlativeF
+                correlativeF += 1
+                self.otroParametro(parametros, baseOtherParam)
+        else:
+            dot.node(f'F{ correlativeF }', 'ε', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'F{ base }', f'F{ correlativeF }')
+            correlativeF += 1
+            pass
         return parametros
 
     # <otroParametro> ::= COMMA <valor> <otroParametro> | ε
-    def otroParametro(self, parametros):
+    def otroParametro(self, parametros, base):
+        global correlativeF
         if self.tokens[0].token_type == TokenType.COMMA:
-            self.tokens.pop(0)
+            nodeTkn = self.tokens.pop(0)
+            dot.node(f'F{ correlativeF }', f'{ nodeTkn.token_type }\n{ nodeTkn.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'F{ base }', f'F{ correlativeF }')
+            correlativeF += 1
             valor = self.valor()
+            dot.node(f'F{ correlativeF }', f'{ valor.token_type }\n{ valor.literal }', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'F{ base }', f'F{ correlativeF }')
+            baseOtherParam = correlativeF
+            correlativeF += 1
             if valor is not None:
                 parametros.append(valor)
-                self.otroParametro(parametros)
+                self.otroParametro(parametros, baseOtherParam)
         else:
-            # epsilon is accepted
+            dot.node(f'F{ correlativeF }', 'ε', fillcolor='firebrick1', style='filled', shape='circle', fontcolor='white')
+            dot.edge(f'F{ base }', f'F{ correlativeF }')
+            correlativeF += 1
             pass
         
     # <otraFuncion> ::= <funcion> <otraFuncion> | ε
@@ -288,19 +385,31 @@ class Parser():
             print("Fin del archivo")
             
     def operarFuncion(self, tipo, parametros):
-        if tipo.literal == 'imprimirln':
+        if tipo.literal == 'imprimir':
             if len(parametros) == 1:
-                print(parametros[0].literal)
+                self.params = self.params + parametros[0].literal.replace('"', '')
+                self.params.replace('\n', '').replace('\t', '')
+                self.results.append(f"imprimir({ parametros[0].literal });")
+                self.results.append(f"{ self.params }")
             else:
                 print("Error: La funcion imprimir solo recibe un parametro")
+        elif tipo.literal == 'imprimirln':
+            if len(parametros) == 1:
+                param = parametros[0].literal.replace('"', '')
+                self.results.append(f"imprimirln({ parametros[0].literal });")
+                self.results.append(f"{ param }")
+            else:
+                print("Error: La funcion imprimirln solo recibe un parametro")
         elif tipo.literal == 'conteo':
             if len(parametros) == 0:
-                print(len(self.listaRegistros))
+                self.results.append("conteo();")
+                self.results.append(f">>> { len(self.listaRegistros) }")
             else:
                 print("Error: La funcion conteo no recibe parametros")
         elif tipo.literal == 'promedio':
             if len(parametros) == 1:
                 if parametros[0].token_type == TokenType.KEYWORD:
+                    self.results.append(f"promedio({ parametros[0].literal });")
                     self.promedio(parametros[0].literal)
                 else:
                     print("Error: El parametro de la funcion promedio debe ser una clave")
@@ -309,17 +418,20 @@ class Parser():
         elif tipo.literal == 'contarsi':
             if len(parametros) == 2:
                 if parametros[0].token_type == TokenType.KEYWORD and parametros[1].token_type == TokenType.INTEGER:
+                    self.results.append(f"contarsi({ parametros[0].literal }, { parametros[1].literal });")
                     self.contarsi(parametros[0].literal, parametros[1].literal)
                 else:
                     print("Error: Los parametros de la funcion contarsi deben ser una clave y un valor")
         elif tipo.literal == 'datos':
             if len(parametros) == 0:
+                self.results.append("datos();")
                 self.datos()
             else:
                 print("Error: La funcion datos no recibe parametros")
         elif tipo.literal == 'sumar':
             if len(parametros) == 1:
                 if parametros[0].token_type == TokenType.KEYWORD:
+                    self.results.append(f"sumar({ parametros[0].literal });")
                     self.sumar(parametros[0].literal)
                 else:
                     print("Error: El parametro de la funcion sumar debe ser una clave")
@@ -327,6 +439,7 @@ class Parser():
                 print("Error: La funcion sumar solo recibe un parametro")
         elif tipo.literal == 'max':
             if len(parametros) == 1:
+                self.results.append(f"max({ parametros[0].literal });")
                 if parametros[0].token_type == TokenType.KEYWORD:
                     self.max(parametros[0].literal)
                 else:
@@ -336,13 +449,14 @@ class Parser():
         elif tipo.literal == 'min':
             if len(parametros) == 1:
                 if parametros[0].token_type == TokenType.KEYWORD:
+                    self.results.append(f"min({ parametros[0].literal });")
                     self.min(parametros[0].literal)
                 else:
                     print("Error: El parametro de la funcion min debe ser una clave")
             else:
                 print("Error: La funcion min solo recibe un parametro")
         
-        # TODO: exportarReporte, imprimirln e imprimir
+        # TODO: exportarReporte
         
     def promedio(self, campo):
         encontrado = False
@@ -360,7 +474,7 @@ class Parser():
                 suma += float(registro[posicion])
             if len(self.listaRegistros) > 0:
                 promedio = suma / len(self.listaRegistros)
-            print(f"promedio: { promedio }")
+            self.results.append(f">>> { promedio }")
     
     def contarsi(self, campo, valor):
         encontrado = False
@@ -376,18 +490,23 @@ class Parser():
             for registro in self.listaRegistros:
                 if registro[posicion] == valor:
                     contador += 1
-            print(f"contarsi: {contador}")
+            self.results.append(f">>> { contador }")
     
     def datos(self):
-        # show all data
+        keys = ">>> "
         for claves in self.listaClaves:
-            print(claves.replace('"', ''), end="\t")
+            keys = keys + '  ' + claves.replace('"', '')
+        self.results.append(f"{ keys }")
         
         for registro in self.listaRegistros:
-            print()
+            value = ">>> "
             for valor in registro:
-                print(valor, end="\t")
-        print()
+                if '"' in valor:
+                    valor = valor.replace('"', '')
+                    value = value + '  ' + valor.replace('"', '')
+                else: 
+                    value = value + '  ' + valor
+            self.results.append(f"{ value }")
 
     def sumar(self, campo):
         encontrado = False
@@ -402,8 +521,7 @@ class Parser():
             suma = 0
             for registro in self.listaRegistros:
                 suma += float(registro[posicion])
-        
-            print(f"sumar: {suma}")
+            self.results.append(f">>> { suma }")
     
     def max(self, campo):
         encontrado = False
@@ -419,7 +537,7 @@ class Parser():
             for registro in self.listaRegistros:
                 valores.append(float(registro[posicion]))
             maximo = max(valores)
-            print(f"max: {maximo}")
+            self.results.append(f">>> { maximo }")
     
     def min(self, campo):
         encontrado = False
@@ -435,10 +553,13 @@ class Parser():
             for registro in self.listaRegistros:
                 valores.append(float(registro[posicion]))
             minimo = min(valores)
-            print(f"min: {minimo}")
+            self.results.append(f">>> { minimo }")
     
-    def getListaClaves(self):
-        return print(self.listaClaves)
+    def getListaClaves(self) -> []:
+        return self.listaClaves
     
-    def getListaRegistros(self):
-        return print(self.listaRegistros)
+    def getListaRegistros(self) -> []:
+        return self.listaRegistros
+    
+    def getResults(self) -> []:
+        return self.results
