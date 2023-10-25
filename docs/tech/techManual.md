@@ -75,12 +75,13 @@ Utilizando la notación BNF se creó la gramática para el analizador sintáctic
 
 **TERMINALES** : KEY, KEYWORD, EQUAL, LBRACE, RBRACE, LBRACKET, RBRACKET, LPAREN, RPAREN, COMMA, INTEGER, FLOAT, SEMICOLON, EOF
 
-**NO TERMINAES** : 
-    <inicio>
-    <claves> 
-    <registros>, <funciones>, <otra_clave>, <registros>, <registro>, <otroRegistro>, <valor>, <otroValor>, <funcion>, <parametros>, <otroParametro>, <otraFuncion>
+**NO TERMINAES** :
 
-**INICIO** : <inicio>
+    <inicio>, <claves>, <registros>, <funciones>, <otra_clave>, <registros>, <registro>, <otroRegistro>, <valor>, <otroValor>, <funcion>, <parametros>, <otroParametro>, <otraFuncion>
+
+**INICIO** : 
+
+    <inicio>
 
 **PRODUCCIONES** :
 
