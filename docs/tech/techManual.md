@@ -75,23 +75,36 @@ Utilizando la notación BNF se creó la gramática para el analizador sintáctic
 
 **TERMINALES** : KEY, KEYWORD, EQUAL, LBRACE, RBRACE, LBRACKET, RBRACKET, LPAREN, RPAREN, COMMA, INTEGER, FLOAT, SEMICOLON, EOF
 
-**NO TERMINAES** : <inicio>, <claves>, <registros>, <funciones>, <otra_clave>, <registros>, <registro>, <otroRegistro>, <valor>, <otroValor>, <funcion>, <parametros>, <otroParametro>, <otraFuncion>
+**NO TERMINAES** : 
+    <inicio>
+    <claves> 
+    <registros>, <funciones>, <otra_clave>, <registros>, <registro>, <otroRegistro>, <valor>, <otroValor>, <funcion>, <parametros>, <otroParametro>, <otraFuncion>
 
 **INICIO** : <inicio>
 
 **PRODUCCIONES** :
+
     <inicio> ::= <claves> <registros> <funciones>
+
     <claves> ::= KEY EQUAL LBRACKET KEYWORD <otra_clave> RBRACKET
+
     <otra_clave> ::= COMMA KEYWORD <otra_clave> | ε
 
     <registros> ::= KEY EQUAL LBRACKET <registro> <otroRegistro> RBRACKET
     <registro> ::= LBRACE <valor> <otroValor> RBRACE
+
     <valor> ::= KEYWORD | INTEGER | FLOAT
+
     <otroValor> ::= COMMA <valor> <otroValor> | ε
+
     <otroRegistro> ::= <registro> <otroRegistro> | ε
 
     <funciones> ::= <funcion> <otraFuncion>
+
     <funcion> ::= KEY LPAREN <parametros> RPAREN SEMICOLON
+
     <parametros> ::= <valor> <otroParametro> | ε
+
     <otroParametro> ::= COMMA <valor> <otroParametro> | ε
+
     <otraFuncion> ::= <funcion> <otraFuncion> | ε
