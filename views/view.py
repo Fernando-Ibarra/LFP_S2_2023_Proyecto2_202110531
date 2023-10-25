@@ -147,8 +147,12 @@ class MenuView():
                     
                     for result in parser.getResults():
                         self.setConsole(str(result) + "\n")
+                    
+                    listResult = parser.getResults()
+                    # get the last result
+                    lastResult = listResult[len(listResult) - 1]
                         
-                    html = Html(parser.getListaClaves(), parser.getListaRegistros())
+                    html = Html(parser.getListaClaves(), parser.getListaRegistros(), lastResult)
                     html_text = html.make_html()
                     
                     file_html = codecs.open("reporte.html", "w", "utf-8")

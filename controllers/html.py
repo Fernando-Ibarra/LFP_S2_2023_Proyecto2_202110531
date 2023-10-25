@@ -1,7 +1,8 @@
 class Html():
-    def __init__(self, ListaClaves, ListaRegistros) -> None:
+    def __init__(self, ListaClaves, ListaRegistros, title) -> None:
         self.ListaClaves = ListaClaves
         self.ListaRegistros = ListaRegistros
+        self.title = title
     
     def make_head(self):
         head = f"""
@@ -28,9 +29,9 @@ class Html():
     def make_body(self):
         body = f"""
         <body>
-            <p class="fs-1">Reporte HTML de abarrotería</p>
+            <p class="fs-1">{ self.title }</p>
             <div class="container text-center">
-                <table class="table table-striped">
+                <table class='table table-bordered border-primary'>
                 <thead>
                     <tr>
         """ 

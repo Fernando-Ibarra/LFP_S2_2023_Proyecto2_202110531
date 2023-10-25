@@ -417,7 +417,7 @@ class Parser():
                 print("Error: La funcion promedio solo recibe un parametro")
         elif tipo.literal == 'contarsi':
             if len(parametros) == 2:
-                if parametros[0].token_type == TokenType.KEYWORD and parametros[1].token_type == TokenType.INTEGER:
+                if parametros[0].token_type == TokenType.KEYWORD and (parametros[1].token_type == TokenType.INTEGER or parametros[1].token_type == TokenType.FLOAT):
                     self.results.append(f"contarsi({ parametros[0].literal }, { parametros[1].literal });")
                     self.contarsi(parametros[0].literal, parametros[1].literal)
                 else:
@@ -455,7 +455,14 @@ class Parser():
                     print("Error: El parametro de la funcion min debe ser una clave")
             else:
                 print("Error: La funcion min solo recibe un parametro")
-        
+        elif tipo.literal == 'exportarReporte':
+            if len(parametros) == 1:
+                if parametros[0].token_type == TokenType.KEYWORD:
+                    self.results.append(f"exportarReporte({ parametros[0].literal });")
+                    param = parametros[0].literal.replace('"', '')
+                    self.results.append(param)
+                else:
+                    print("Error: El parametro de la funcion exportarReporte debe ser una clave")
         # TODO: exportarReporte
         
     def promedio(self, campo):
