@@ -6,8 +6,8 @@ import os
 from controllers.lexer import Lexer
 from controllers.parser import Parser
 from controllers.graph import make_graph
-from controllers.errors import processErrors
 from controllers.html import Html
+from controllers.errors import HtmlError
 
 class MenuView():
     menuView = Tk()
@@ -158,15 +158,22 @@ class MenuView():
                     file_html = codecs.open("reporte.html", "w", "utf-8")
                     file_html.write(html_text)
                     file_html.close()
+                    dir_path = os.path.dirname(os.path.realpath(__file__))
+                    self.setConsole("Archivo de errores generado correctamente: " + dir_path.replace("\\view", '') + "\Reporte.html" + "\n")
                 except:
                     print("Error: No se pudo analizar el archivo")
         except:
             messagebox.showinfo(title="Aviso", message="Ocurrio un error al analizar el archivo")   
     def generateErrors(self):
         try:
-            processErrors()
+            errorHtml = HtmlError()
+            htmlError_file = errorHtml.make_html()
+            
+            file_html = codecs.open("RESULTADOS_202110531.html", "w", "utf-8")
+            file_html.write(htmlError_file)
+            file_html.close()
             dir_path = os.path.dirname(os.path.realpath(__file__))
-            self.setConsole("Archivo de errores generado correctamente: " + dir_path.replace("\\view", '') + "\RESULTADOS_202110531.json" + "\n")
+            self.setConsole("Archivo de errores generado correctamente: " + dir_path.replace("\\view", '') + "\RESULTADOS_202110531.html" + "\n")
         except:
             messagebox.showinfo(title="Aviso", message="Ocurrio un error al generar el reporte de errores")  
     def generateGraphviz(self):
